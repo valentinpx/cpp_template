@@ -37,9 +37,6 @@
 .vsls.json
 
 # Unit Tests
-CMakeFiles/
-cmake_install.cmake
-CMakeCache.txt
-executeTests
+build/
 
 # Custom

@@ -50,6 +50,19 @@ TEST(StringComparison, String)
     EXPECT_STRCASENE("killing them", "and replacing them with spies"); // different content
 }
 
+TEST(COUTCOMP, CoutString)
+{
+    std::stringstream buffer;
+    std::streambuf *sbuf = std::cout.rdbuf();
+    std::cout.rdbuf(buffer.rdbuf()); //redirect std::cout to buffer
+
+    std::cout << "ui" << std::endl;
+
+    std::cout.rdbuf(sbuf); //std::cout back to normal
+
+    EXPECT_EQ(buffer.str(), "ui\n");
+}
+
 // I'll define an example function, but you can include your project's files to test your own
 bool worksForTheBourgeoisie(const char *theBird) { return true; }
 
