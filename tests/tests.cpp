@@ -6,6 +6,7 @@
 */
 
 #include <gtest/gtest.h>
+#include <string> //required by output comparaison
 
 // Install gtest  via these intructions: https://github.com/google/googletest/blob/master/googletest/README.md#generic-build-instructions
 // Replace EXPECT by ASSERT if it doesn't make sense to continue when the assertion in question fails
@@ -56,11 +57,12 @@ TEST(COUTCOMP, CoutString)
     std::streambuf *sbuf = std::cout.rdbuf();
     std::cout.rdbuf(buffer.rdbuf()); //redirect std::cout to buffer
 
-    std::cout << "ui" << std::endl;
+    std::cout << "ui" << std::endl; // output to std::cout
 
     std::cout.rdbuf(sbuf); //std::cout back to normal
+    std::string expected = "ui\n"; // expected output
 
-    EXPECT_EQ(buffer.str(), "ui\n");
+    EXPECT_EQ(buffer.str(), expected);
 }
 
 // I'll define an example function, but you can include your project's files to test your own
