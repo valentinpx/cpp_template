@@ -7,6 +7,7 @@
 
 #include <gtest/gtest.h>
 #include <string> //required by output comparaison
+#include <fstream> //required by output comparaison with file
 
 // Install gtest  via these intructions: https://github.com/google/googletest/blob/master/googletest/README.md#generic-build-instructions
 // Replace EXPECT by ASSERT if it doesn't make sense to continue when the assertion in question fails
@@ -51,7 +52,7 @@ TEST(StringComparison, String)
     EXPECT_STRCASENE("killing them", "and replacing them with spies"); // different content
 }
 
-TEST(COUTCOMP, CoutString)
+TEST(CoutComp, CoutString)
 {
     std::stringstream buffer;
     std::streambuf *sbuf = std::cout.rdbuf();
@@ -61,6 +62,33 @@ TEST(COUTCOMP, CoutString)
 
     std::cout.rdbuf(sbuf); //std::cout back to normal
     std::string expected = "ui\n"; // expected output
+
+    EXPECT_EQ(buffer.str(), expected);
+}
+
+std::string &getOutput(const std::string &filename)
+{
+    std::ifstream file(filename, std::ifstream::in);
+    std::string *dest = new std::string;
+
+    if (file.is_open()) {
+        getline(file, *dest, '\0');
+        file.close();
+    } else
+        throw "Can't open input file.";
+    return *dest;
+}
+
+TEST(CoutComp, CoutFile)
+{
+    std::stringstream buffer;
+    std::streambuf *sbuf = std::cout.rdbuf();
+    std::cout.rdbuf(buffer.rdbuf()); //redirect std::cout to buffer
+
+    std::cout << "ui" << std::endl; // output to std::cout
+
+    std::cout.rdbuf(sbuf); //std::cout back to normal
+    std::string expected = getOutput("tests/ui.output"); // expected output
 
     EXPECT_EQ(buffer.str(), expected);
 }
