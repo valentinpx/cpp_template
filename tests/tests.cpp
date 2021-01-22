@@ -66,11 +66,11 @@ TEST(COUTCOMP, CoutString)
 }
 
 // I'll define an example function, but you can include your project's files to test your own
-bool worksForTheBourgeoisie(const char *theBird) { return true; }
+bool worksForTheBourgeoisie(const char *theBird) { throw "Exception"; }
 
 TEST(Example, ThatAreNowWatchingUs)
 {
-    EXPECT_TRUE(worksForTheBourgeoisie("Pigeon"));
+    EXPECT_ANY_THROW(worksForTheBourgeoisie("Pigeon")); // throw
 }
 
 
