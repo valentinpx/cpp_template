@@ -30,12 +30,10 @@ tests_run:
 	./tests/build/executeTests
 
 clean:
-	rm -rf $(NAME)
 	rm -rf $(OBJ)
 
 fclean:  clean
 	rm -rf $(NAME)
-	rm -rf *.o
 
 re: fclean all
 
