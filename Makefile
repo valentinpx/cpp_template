@@ -11,12 +11,12 @@ OBJ = $(SRC:.cpp=.o)
 
 NAME = a.out
 
-CFLAGS = -Wall -Wextra -Werror
+CPPFLAGS += -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ $(CFLAGS) $(SRC) -o $(NAME) -I.
+	g++ $(CPPFLAGS) $(SRC) -o $(NAME) -I.
 
 debug: clean
 debug: CFLAGS += -g
