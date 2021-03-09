@@ -13,10 +13,12 @@ NAME = a.out
 
 CPPFLAGS += -Wall -Wextra -Werror
 
+CC = g++
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ $(CPPFLAGS) $(SRC) -o $(NAME) -I.
+	$(CC) $(CPPFLAGS) $(SRC) -o $(NAME) -I.
 
 debug: clean
 debug: CFLAGS += -g
